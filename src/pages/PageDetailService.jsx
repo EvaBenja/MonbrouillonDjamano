@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+const svcBanner = (id) => `/services/service${id || 1}.jpg`;
+const detailImg = (n) => `/detailsimages/details${(n % 6) + 1}.jpg`;
+const detailFb  = ['linear-gradient(145deg,#f97316,#ea580c)','linear-gradient(145deg,#c2410c,#ea580c)','linear-gradient(145deg,#0891b2,#06b6d4)','linear-gradient(145deg,#065f46,#059669)'];
+const ImgFb = ({ src, fallback, style }) => { const [e, setE] = React.useState(false); return e ? React.createElement('div',{style:{...style,background:fallback}}) : React.createElement('img',{src,alt:'',onError:()=>setE(true),style:{...style,objectFit:'cover',display:'block'}}); };
 import { useNavigate } from 'react-router-dom';
 import EntetePageDetail from '../composants-communs/EntetePageDetail';
 import Pagination from '../composants-communs/Pagination';
@@ -37,7 +41,7 @@ const PageDetailService = () => {
   const s = {
     page: { background:'#fff', minHeight:'100vh', fontFamily:'Poppins, sans-serif' },
     /* Bannière */
-    banner: { width:'100%', height:280, background:'linear-gradient(135deg,#065f46,#059669)', position:'relative' },
+    banner: { width:'100%', height:280, position:'relative', overflow:'hidden', background:'linear-gradient(135deg,#065f46,#059669)' },
     bannerContent: { position:'absolute', bottom:-38, left:32, display:'flex', alignItems:'flex-end', gap:16 },
     avatarRond: {
       width:76, height:76, borderRadius:'50%',
@@ -97,7 +101,7 @@ const PageDetailService = () => {
       <EntetePageDetail />
 
       {/* Bannière */}
-      <div style={s.banner}>
+      <div style={s.banner}><ImgFb src={svcBanner(1)} fallback='linear-gradient(135deg,#065f46,#059669)' style={{ width:'100%', height:'100%', position:'absolute', top:0, left:0 }} />
         <div style={s.bannerContent}>
           <div style={s.avatarRond}>M</div>
         </div>
@@ -136,7 +140,7 @@ const PageDetailService = () => {
             <div style={s.grid3}>
               {produits.map((p,i) => (
                 <div key={i} style={s.prodCard}>
-                  <div style={s.prodImg(p.g)} />
+                  <ImgFb src={detailImg(i)} fallback={detailFb[i % 4]} style={{ width:'100%', height:85 }} />
                   <div style={s.prodBody}>
                     <div style={s.prodNom}>{p.nom}</div>
                     <div style={s.prodPrix}>{p.prix}</div>
@@ -171,8 +175,8 @@ const PageDetailService = () => {
 
             <div style={s.portfolioTitre}>Portfolio</div>
             <div style={s.portGrid}>
-              {['linear-gradient(135deg,#065f46,#059669)','linear-gradient(135deg,#dc2626,#ef4444)'].map((g,i) => (
-                <div key={i} style={s.portImg(g)} />
+              {[0,1].map((_,i) => (
+                <div key={i} style={{ borderRadius:10, overflow:'hidden', marginBottom:8 }}><ImgFb src={detailImg(i+4)} fallback={detailFb[i]} style={{ width:'100%', height:110 }} /></div>
               ))}
             </div>
           </div>
