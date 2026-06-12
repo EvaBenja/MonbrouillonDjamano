@@ -177,8 +177,8 @@ const PageDetailService = () => {
             {/* Grille produits */}
             <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:11, marginBottom:12 }}>
               {prodVisible.map((p, i) => (
-                <div key={i} style={{ border:'1px solid #efefef', borderRadius:10, overflow:'hidden', boxShadow:'0 1px 4px rgba(0,0,0,.04)' }}>
-                  <div style={{ width:'100%', height:82, overflow:'hidden' }}>
+                <div key={i} style={{ border:'1.5px solid rgba(255,255,255,0.6)', borderRadius:10, overflow:'hidden', boxShadow:'0 2px 8px rgba(0,0,0,.08)' }}>
+                  <div style={{ width:'100%', height:105, overflow:'hidden' }}>
                     <Img src={detailImgSrc(i)} fallback={fbs[i % fbs.length]} style={{ width:'100%', height:'100%' }} />
                   </div>
                   <div style={{ padding:'8px 10px' }}>
@@ -253,7 +253,7 @@ const PageDetailService = () => {
             <div style={{ fontSize:14, fontWeight:700, color:'#111', marginBottom:10 }}>Portfolio</div>
             <div style={{ display:'flex', flexDirection:'column', gap:9 }}>
               {[4, 5].map((n, i) => (
-                <div key={i} style={{ borderRadius:10, overflow:'hidden', height:108 }}>
+                <div key={i} style={{ overflow:'hidden', height:108 }}>
                   <Img src={detailImgSrc(n)} fallback={fbs[i]} style={{ width:'100%', height:'100%' }} />
                 </div>
               ))}
