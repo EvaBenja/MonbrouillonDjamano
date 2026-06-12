@@ -41,3 +41,70 @@ section { width: 100%; }
 @media (max-width: 480px) {
   body { font-size: 13px; }
 }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — Djamano
+   ═══════════════════════════════════════ */
+
+/* Tablette ≤ 900px */
+@media (max-width: 900px) {
+  /* Navbar pages : liens plus petits */
+  nav a, nav button { font-size: 12px !important; padding: 6px 10px !important; }
+
+  /* Pages listing : grille 2 colonnes */
+  .grid-3-cols { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Détail service : 1 colonne */
+  .detail-service-grid { grid-template-columns: 1fr !important; }
+
+  /* Détail événement */
+  .detail-event-grid { grid-template-columns: 1fr !important; }
+
+  /* Détail expérience */
+  .detail-exp-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Mobile ≤ 600px */
+@media (max-width: 600px) {
+  /* Barre recherche : colonne */
+  .barre-recherche { flex-direction: column !important; border-radius: 12px !important; }
+  .barre-recherche > div { border-right: none !important; border-bottom: 1px solid #efefef !important; }
+  .barre-recherche button { min-height: 52px !important; border-radius: 0 0 12px 12px !important; }
+
+  /* Navbar : logo seul + hamburger */
+  .navbar-links { display: none !important; }
+
+  /* Grilles 1 colonne */
+  .grid-3-cols { grid-template-columns: 1fr !important; }
+  .grid-2-cols { grid-template-columns: 1fr !important; }
+
+  /* Padding réduit */
+  .page-inner { padding: 16px !important; }
+
+  /* Bannière service */
+  .svc-banner { height: 160px !important; }
+
+  /* Prod grid 2 cols sur mobile */
+  .prod-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Slider : cacher chevrons, scroll horizontal */
+  .slider-grid { display: flex !important; overflow-x: auto !important; gap: 14px !important; scroll-snap-type: x mandatory !important; }
+  .slider-grid > * { min-width: 75vw !important; scroll-snap-align: start !important; flex-shrink: 0 !important; }
+  .slider-nav { display: none !important; }
+
+  /* Avis grid 1 colonne */
+  .avis-grid { grid-template-columns: 1fr !important; }
+
+  /* Bannières expérience */
+  .exp-banners { grid-template-columns: 1fr !important; }
+  .exp-banners > *:last-child { display: none !important; }
+
+  /* Sidebar profil en haut pleine largeur */
+  .exp-sidebar { width: 100% !important; }
+
+  /* Tickets / Elections grille 1 col */
+  .tickets-grid { grid-template-columns: 1fr !important; }
+
+  /* Pagination centree */
+  .pagination { flex-wrap: wrap !important; gap: 6px !important; }
+}
