@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BarreRechercheGlobale from '../composants-communs/BarreRechercheGlobale';
 import StatistiquesBas from '../composants-communs/StatistiquesBas';
 import PiedDePage from '../components/PiedDePage';
 
@@ -90,7 +91,7 @@ const CarteService = ({ svc, onClick }) => {
       onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,.05)'; }}
     >
       {/* Image */}
-      <div style={{ position: 'relative', width: '100%', height: 188, overflow: 'hidden', background: fallback }}>
+      <div style={{ position: 'relative', width: '100%', height: 170, overflow: 'hidden', background: fallback }}>
         {!imgError ? (
           <img
             src={svcImg(svc.id)}
@@ -218,7 +219,7 @@ const PageServices = () => {
   return (
     <div style={{ background: '#fff', minHeight: '100vh', fontFamily: 'Poppins, sans-serif' }}>
       <div style={{ maxWidth: 1160, margin: '0 auto', padding: '28px 28px 0' }}>
-        <BarreRecherche />
+        <BarreRechercheGlobale />
       </div>
       <div style={{ maxWidth: 1160, margin: '0 auto', padding: '48px 28px 0' }}>
         {SECTIONS.map(sec => (

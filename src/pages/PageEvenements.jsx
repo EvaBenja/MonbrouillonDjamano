@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BarreRechercheGlobale from '../composants-communs/BarreRechercheGlobale';
 import StatistiquesBas from '../composants-communs/StatistiquesBas';
 import PiedDePage from '../components/PiedDePage';
 
@@ -134,7 +135,7 @@ const CarteEvenement = ({ ev, onClick }) => {
     >
       {/* Affiche */}
       <div style={{
-        width: '100%', height: 200, position: 'relative', overflow: 'hidden',
+        width: '100%', height: 185, position: 'relative', overflow: 'hidden',
         background: imgError ? fallback : 'transparent',
       }}>
         {!imgError && (
@@ -349,7 +350,7 @@ const PageEvenements = () => {
     <div style={{ background: '#fff', minHeight: '100vh', fontFamily: 'Poppins, sans-serif' }}>
       {/* Barre de recherche */}
       <div style={{ maxWidth: 1160, margin: '0 auto', padding: '28px 28px 0' }}>
-        <BarreRecherche />
+        <BarreRechercheGlobale />
       </div>
 
       {/* Sections événements */}

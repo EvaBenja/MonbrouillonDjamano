@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BarreRechercheGlobale from '../composants-communs/BarreRechercheGlobale';
 import PiedDePage from '../components/PiedDePage';
 
 /* ── Images depuis /public/experiences/ ── */
@@ -115,7 +116,7 @@ const CarteExperience = ({ exp, onClick }) => {
 
       {/* ── Photo ── */}
       <div style={{
-        width: '100%', height: 190,
+        width: '100%', height: 175,
         background: imgError ? fallback : '#f5f5f5',
         overflow: 'hidden',
       }}>
@@ -243,7 +244,7 @@ const PageExperiences = () => {
   return (
     <div style={{ background: '#fff', minHeight: '100vh', fontFamily: 'Poppins, sans-serif' }}>
       <div style={{ maxWidth: 1160, margin: '0 auto', padding: '28px 28px 0' }}>
-        <BarreRecherche />
+        <BarreRechercheGlobale />
       </div>
       <div style={{ maxWidth: 1160, margin: '0 auto', padding: '48px 28px 0' }}>
         {SECTIONS.map(sec => (
