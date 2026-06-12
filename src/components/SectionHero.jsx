@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -133,7 +135,7 @@ const HeroSection = () => {
         <div style={styles.storeRow}>
           <button 
             style={styles.btnOrange} 
-            onClick={() => scrollToSection('services')}
+            onClick={() => navigate('/evenements')}
           >
             Voir les événements
           </button>
