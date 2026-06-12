@@ -96,7 +96,7 @@ const PageDetailExperience = () => {
           <div>
             {/* Profil card */}
             <div style={{ border:'1px solid #efefef', borderRadius:16, padding:20, textAlign:'center', marginBottom:20, boxShadow:'0 1px 6px rgba(0,0,0,.05)' }}>
-              <div style={{ width:72, height:72, borderRadius:'50%', overflow:'hidden', margin:'0 auto 12px', border:1.5px solid #eee', boxShadow:'0 2px 8px rgba(0,0,0,.1)' }}>
+              <div style={{ width:72, height:72, borderRadius:'50%', overflow:'hidden', margin:'0 auto 12px', border:'1.5px solid #eee', boxShadow:'0 2px 8px rgba(0,0,0,.1)' }}>
                 <ImgFallback
                   src={personneImgs[exp.img]}
                   fallback={fallbacks[exp.img % fallbacks.length]}
@@ -139,7 +139,7 @@ const PageDetailExperience = () => {
                 key={i}
                 onClick={() => setPostActif(i)}
                 style={{
-                  border:1.5px solid #eee' : '1px solid #efefef',
+                  border:'1.5px solid #eee' : '1px solid #efefef',
                   borderRadius:12, overflow:'hidden', marginBottom:12,
                   cursor:'pointer', transition:'border-color .2s',
                   boxShadow: postActif === i ? '0 0 0 3px rgba(255,90,0,0.08)' : 'none',
@@ -167,7 +167,7 @@ const PageDetailExperience = () => {
             <div style={{ border:'1px solid #efefef', borderRadius:16, overflow:'hidden', marginBottom:24, boxShadow:'0 1px 8px rgba(0,0,0,.06)' }}>
               {/* Header */}
               <div style={{ display:'flex', alignItems:'center', gap:10, padding:'13px 16px', borderBottom:'1px solid #f5f5f5' }}>
-                <div style={{ width:36, height:36, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:1.5px solid #eee' }}>
+                <div style={{ width:36, height:36, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:'1.5px solid #eee' }}>
                   <ImgFallback src={personneImgs[exp.img]} fallback={fallbacks[0]} style={{ width:'100%', height:'100%' }} />
                 </div>
                 <div>
@@ -214,7 +214,7 @@ const PageDetailExperience = () => {
                 <div key={i} style={{ paddingBottom:16, borderBottom:'1px solid #f5f5f5' }}>
                   {/* Avatar + nom */}
                   <div style={{ display:'flex', alignItems:'center', gap:9, marginBottom:10 }}>
-                    <div style={{ width:32, height:32, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:1.5px solid #eee' }}>
+                    <div style={{ width:32, height:32, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:'1.5px solid #eee' }}>
                       <ImgFallback
                         src={personneImgs[(exp.img + i) % personneImgs.length]}
                         fallback={fallbacks[i % fallbacks.length]}
