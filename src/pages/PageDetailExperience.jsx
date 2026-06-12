@@ -80,7 +80,7 @@ const PageDetailExperience = () => {
         {/* ── Bannières 2 images CARRÉES ── */}
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:14, marginBottom:32 }}>
           {[0, 1].map(i => (
-            <div key={i} style={{ borderRadius:14, aspectRatio:'1 / 1', overflow:'hidden' }}>
+            <div key={i} style={{ borderRadius:14, height:160, overflow:'hidden' }}>
               <ImgFallback
                 src={personneImgs[(exp.img + i + 1) % personneImgs.length]}
                 fallback={fallbacks[i % fallbacks.length]}
@@ -96,7 +96,7 @@ const PageDetailExperience = () => {
           <div>
             {/* Profil card */}
             <div style={{ border:'1px solid #efefef', borderRadius:16, padding:20, textAlign:'center', marginBottom:20, boxShadow:'0 1px 6px rgba(0,0,0,.05)' }}>
-              <div style={{ width:72, height:72, borderRadius:'50%', overflow:'hidden', margin:'0 auto 12px', border:'3px solid #FF5A00', boxShadow:'0 2px 8px rgba(0,0,0,.1)' }}>
+              <div style={{ width:72, height:72, borderRadius:'50%', overflow:'hidden', margin:'0 auto 12px', border:1.5px solid #eee', boxShadow:'0 2px 8px rgba(0,0,0,.1)' }}>
                 <ImgFallback
                   src={personneImgs[exp.img]}
                   fallback={fallbacks[exp.img % fallbacks.length]}
@@ -106,18 +106,18 @@ const PageDetailExperience = () => {
               <div style={{ fontSize:15, fontWeight:800, color:'#111' }}>{exp.nom}</div>
               <div style={{ fontSize:12.5, color:'#888', marginTop:2 }}>{exp.role}</div>
               {exp.hybride && (
-                <div style={{ display:'inline-block', fontSize:11.5, color:'#FF5A00', fontWeight:700, background:'#FFF3ED', padding:'4px 12px', borderRadius:20, marginTop:8 }}>
+                <div style={{ display:'inline-block', fontSize:11.5, color:'#111', fontWeight:700, background:'#FFF3ED', padding:'4px 12px', borderRadius:20, marginTop:8 }}>
                   Certifié ✓
                 </div>
               )}
               {/* Stats en orange */}
               <div style={{ display:'flex', justifyContent:'center', gap:24, marginTop:16, paddingTop:14, borderTop:'1px solid #f5f5f5' }}>
                 <div style={{ textAlign:'center' }}>
-                  <div style={{ fontSize:15, fontWeight:800, color:'#FF5A00' }}>{exp.views}</div>
+                  <div style={{ fontSize:15, fontWeight:800, color:'#111' }}>{exp.views}</div>
                   <div style={{ fontSize:10.5, color:'#aaa' }}>vues</div>
                 </div>
                 <div style={{ textAlign:'center' }}>
-                  <div style={{ fontSize:15, fontWeight:800, color:'#FF5A00' }}>128</div>
+                  <div style={{ fontSize:15, fontWeight:800, color:'#111' }}>128</div>
                   <div style={{ fontSize:10.5, color:'#aaa' }}>abonnés</div>
                 </div>
               </div>
@@ -128,7 +128,7 @@ const PageDetailExperience = () => {
               <div style={{ fontSize:14, fontWeight:800, color:'#111', marginBottom:8 }}>Biographie</div>
               <div style={{ fontSize:13, color:'#555', lineHeight:1.72 }}>
                 La nourriture et les boissons étaient délicieuses, l'atmosphère était fantastique aussi ! J'ai adoré l'attention portée aux détails...
-                <span style={{ color:'#FF5A00', fontWeight:700, cursor:'pointer' }}> Afficher plus ...</span>
+                <span style={{ color:'#111', fontWeight:700, cursor:'pointer' }}> Afficher plus ...</span>
               </div>
             </div>
 
@@ -139,14 +139,14 @@ const PageDetailExperience = () => {
                 key={i}
                 onClick={() => setPostActif(i)}
                 style={{
-                  border: postActif === i ? '2px solid #FF5A00' : '1px solid #efefef',
+                  border:1.5px solid #eee' : '1px solid #efefef',
                   borderRadius:12, overflow:'hidden', marginBottom:12,
                   cursor:'pointer', transition:'border-color .2s',
                   boxShadow: postActif === i ? '0 0 0 3px rgba(255,90,0,0.08)' : 'none',
                 }}
               >
                 {/* image CARRÉE */}
-                <div style={{ width:'100%', aspectRatio:'1 / 1', overflow:'hidden' }}>
+                <div style={{ width:'100%', height:200, overflow:'hidden' }}>
                   <ImgFallback src={p.img} fallback={p.fb} style={{ width:'100%', height:'100%' }} />
                 </div>
                 <div style={{ padding:'10px 12px' }}>
@@ -155,7 +155,7 @@ const PageDetailExperience = () => {
                   <div style={{ fontSize:12, color:'#666', marginTop:4, lineHeight:1.45 }}>
                     Sortie de notre promotion, comme le temps file aussi vite...
                   </div>
-                  <span style={{ fontSize:12, color:'#FF5A00', fontWeight:700, display:'block', marginTop:6 }}>Afficher plus ...</span>
+                  <span style={{ fontSize:12, color:'#111', fontWeight:700, display:'block', marginTop:6 }}>Afficher plus ...</span>
                 </div>
               </div>
             ))}
@@ -167,21 +167,21 @@ const PageDetailExperience = () => {
             <div style={{ border:'1px solid #efefef', borderRadius:16, overflow:'hidden', marginBottom:24, boxShadow:'0 1px 8px rgba(0,0,0,.06)' }}>
               {/* Header */}
               <div style={{ display:'flex', alignItems:'center', gap:10, padding:'13px 16px', borderBottom:'1px solid #f5f5f5' }}>
-                <div style={{ width:36, height:36, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:'2px solid #FF5A00' }}>
+                <div style={{ width:36, height:36, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:1.5px solid #eee' }}>
                   <ImgFallback src={personneImgs[exp.img]} fallback={fallbacks[0]} style={{ width:'100%', height:'100%' }} />
                 </div>
                 <div>
                   <div style={{ fontSize:14, fontWeight:800, color:'#111' }}>{exp.nom}</div>
-                  <div style={{ fontSize:11, color:'#aaa' }}>{exp.hybride ? <span style={{ color:'#FF5A00', fontWeight:700 }}>Certifié</span> : exp.role}</div>
+                  <div style={{ fontSize:11, color:'#aaa' }}>{exp.hybride ? <span style={{ color:'#111', fontWeight:700 }}>Certifié</span> : exp.role}</div>
                 </div>
                 <div style={{ marginLeft:'auto', textAlign:'right' }}>
-                  <div style={{ fontSize:13, fontWeight:800, color:'#FF5A00' }}>{exp.views}</div>
+                  <div style={{ fontSize:13, fontWeight:800, color:'#111' }}>{exp.views}</div>
                   <div style={{ fontSize:11, color:'#aaa' }}>{exp.temps}</div>
                 </div>
               </div>
 
               {/* Image CARRÉE du post */}
-              <div style={{ width:'100%', aspectRatio:'1 / 1', overflow:'hidden' }}>
+              <div style={{ width:'100%', height:200, overflow:'hidden' }}>
                 <ImgFallback
                   src={personneImgs[(exp.img + 2) % personneImgs.length]}
                   fallback={fallbacks[2]}
@@ -197,14 +197,14 @@ const PageDetailExperience = () => {
               {/* Footer post */}
               <div style={{ padding:'10px 16px 14px', borderTop:'1px solid #f5f5f5', display:'flex', alignItems:'center', gap:16 }}>
                 <div style={{ display:'flex', alignItems:'center', gap:5 }}>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="#FF5A00" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                  <span style={{ fontSize:13, fontWeight:800, color:'#FF5A00' }}>300</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="#555" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  <span style={{ fontSize:13, fontWeight:800, color:'#111' }}>300</span>
                 </div>
                 <div style={{ display:'flex', alignItems:'center', gap:5 }}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#aaa" strokeWidth="1.8" strokeLinecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                   <span style={{ fontSize:13, fontWeight:800, color:'#333' }}>255</span>
                 </div>
-                <span style={{ fontSize:13, color:'#FF5A00', fontWeight:800, cursor:'pointer', marginLeft:'auto' }}>Afficher moins ...</span>
+                <span style={{ fontSize:13, color:'#111', fontWeight:800, cursor:'pointer', marginLeft:'auto' }}>Afficher moins ...</span>
               </div>
             </div>
 
@@ -214,7 +214,7 @@ const PageDetailExperience = () => {
                 <div key={i} style={{ paddingBottom:16, borderBottom:'1px solid #f5f5f5' }}>
                   {/* Avatar + nom */}
                   <div style={{ display:'flex', alignItems:'center', gap:9, marginBottom:10 }}>
-                    <div style={{ width:32, height:32, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:'2px solid #FF5A00' }}>
+                    <div style={{ width:32, height:32, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:1.5px solid #eee' }}>
                       <ImgFallback
                         src={personneImgs[(exp.img + i) % personneImgs.length]}
                         fallback={fallbacks[i % fallbacks.length]}
@@ -223,7 +223,7 @@ const PageDetailExperience = () => {
                     </div>
                     <div>
                       <div style={{ fontSize:13, fontWeight:800, color:'#111' }}>{exp.nom}</div>
-                      <div style={{ fontSize:10.5, color:'#FF5A00', fontWeight:700 }}>Certifié</div>
+                      <div style={{ fontSize:10.5, color:'#111', fontWeight:700 }}>Certifié</div>
                     </div>
                   </div>
                   {/* Texte commentaire — sans aucune box/border */}
@@ -234,7 +234,7 @@ const PageDetailExperience = () => {
             </div>
 
             <div style={{ display:'flex', justifyContent:'center', padding:'20px 0 36px', cursor:'pointer' }}>
-              <span style={{ fontSize:14, color:'#FF5A00', fontWeight:800 }}>Afficher plus de commentaires</span>
+              <span style={{ fontSize:14, color:'#111', fontWeight:800 }}>Afficher plus de commentaires</span>
             </div>
           </div>
         </div>
