@@ -139,7 +139,7 @@ const PageDetailExperience = () => {
                 key={i}
                 onClick={() => setPostActif(i)}
                 style={{
-                  border:'1.5px solid #eee' : '1px solid #efefef',
+                  border: postActif === i ? '2px solid #111' : '1px solid #efefef',
                   borderRadius:12, overflow:'hidden', marginBottom:12,
                   cursor:'pointer', transition:'border-color .2s',
                   boxShadow: postActif === i ? '0 0 0 3px rgba(255,90,0,0.08)' : 'none',
