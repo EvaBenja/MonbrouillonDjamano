@@ -93,9 +93,9 @@ const SectionSlider = ({ section, onSelect, isMobile }) => {
       </div>
 
       {isMobile ? (
-        <div style={{display:'flex',overflowX:'auto',gap:14,paddingBottom:8,scrollSnapType:'x mandatory',WebkitOverflowScrolling:'touch',scrollbarWidth:'none',msOverflowStyle:'none'}}>
+        <div style={{display:'flex',flexDirection:'column',gap:14}}>
           {section.items.map(exp=>(
-            <div key={exp.id} style={{minWidth:'78vw',maxWidth:300,flexShrink:0,scrollSnapAlign:'start'}}>
+            <div key={exp.id} style={{width:'100%'}}>
               <CarteExperience exp={exp} onClick={()=>onSelect(exp.id)}/>
             </div>
           ))}

@@ -97,7 +97,7 @@ const SectionSlider = ({ section, onSelect, isMobile }) => {
         /* Mobile : scroll horizontal */
         <div style={{display:'flex',overflowX:'auto',gap:14,paddingBottom:8,scrollSnapType:'x mandatory',WebkitOverflowScrolling:'touch',msOverflowStyle:'none',scrollbarWidth:'none'}}>
           {section.items.map(ev=>(
-            <div key={ev.id} style={{minWidth:'78vw',maxWidth:300,flexShrink:0,scrollSnapAlign:'start'}}>
+            <div key={ev.id} style={{width:'100%'}}>
               <CarteEvenement ev={ev} onClick={()=>onSelect(ev.id)}/>
             </div>
           ))}
