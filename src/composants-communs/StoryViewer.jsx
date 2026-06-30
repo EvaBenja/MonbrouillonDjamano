@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useResponsive from './useResponsive';
 
 /* Image avec fallback */
 const ImgFb = ({ src, fallback, style = {} }) => {
@@ -30,6 +31,7 @@ const DUREE_STORY = 5000; // ms par story
  * stories: [{ img, fallback, description, vues }]
  */
 const StoryViewer = ({ profil, stories, onClose, onNavigerProfilSuivant, onNavigerProfilPrecedent }) => {
+  const { isMobile } = useResponsive();
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -57,7 +59,6 @@ const StoryViewer = ({ profil, stories, onClose, onNavigerProfilSuivant, onNavig
       });
     }, 50);
     return () => clearInterval(intervalRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, paused]);
 
   const allerSuivant = () => {
@@ -88,26 +89,35 @@ const StoryViewer = ({ profil, stories, onClose, onNavigerProfilSuivant, onNavig
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 2000,
-      background: 'rgba(0,0,0,0.92)',
+      background: 'rgba(0,0,0,0.55)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       fontFamily: 'Poppins, sans-serif',
-    }}>
-      {/* Flèche gauche (desktop) */}
-      <div
-        onClick={allerPrecedent}
-        style={{
-          position: 'absolute', left: 24, top: '50%', transform: 'translateY(-50%)',
-          width: 44, height: 44, borderRadius: '50%', background: '#fff',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer', boxShadow: '0 4px 16px rgba(0,0,0,.25)', zIndex: 10,
-        }}
-      >
-        <IcoChevronLeft />
-      </div>
+      padding: 20,
+    }} onClick={onClose}>
+      {/* Flèche gauche (desktop uniquement) */}
+      {!isMobile && (
+        <div
+          onClick={e => { e.stopPropagation(); allerPrecedent(); }}
+          style={{
+            position: 'absolute', left: 'calc(50% - 280px)', top: '50%', transform: 'translateY(-50%)',
+            width: 42, height: 42, borderRadius: '50%', background: '#fff',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer', boxShadow: '0 4px 16px rgba(0,0,0,.25)', zIndex: 10,
+          }}
+        >
+          <IcoChevronLeft />
+        </div>
+      )}
 
-      {/* Conteneur story */}
+      {/* Carte modal de la story */}
       <div
-        style={{ width: '100%', maxWidth: 460, height: '100%', maxHeight: 820, position: 'relative', display: 'flex', flexDirection: 'column' }}
+        style={{
+          width: '100%', maxWidth: 420, height: '88vh', maxHeight: 760,
+          position: 'relative', display: 'flex', flexDirection: 'column',
+          background: '#1a1a1a', borderRadius: 18, overflow: 'hidden',
+          boxShadow: '0 20px 60px rgba(0,0,0,.45)',
+        }}
+        onClick={e => e.stopPropagation()}
         onMouseDown={() => setPaused(true)}
         onMouseUp={() => setPaused(false)}
         onTouchStart={() => setPaused(true)}
@@ -165,18 +175,20 @@ const StoryViewer = ({ profil, stories, onClose, onNavigerProfilSuivant, onNavig
         <div onClick={allerSuivant}   style={{ position: 'absolute', right: 0, top: 60, bottom: 60, width: '35%', cursor: 'pointer' }} />
       </div>
 
-      {/* Flèche droite (desktop) */}
-      <div
-        onClick={allerSuivant}
-        style={{
-          position: 'absolute', right: 24, top: '50%', transform: 'translateY(-50%)',
-          width: 44, height: 44, borderRadius: '50%', background: '#fff',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer', boxShadow: '0 4px 16px rgba(0,0,0,.25)', zIndex: 10,
-        }}
-      >
-        <IcoChevronRight />
-      </div>
+      {/* Flèche droite (desktop uniquement) */}
+      {!isMobile && (
+        <div
+          onClick={e => { e.stopPropagation(); allerSuivant(); }}
+          style={{
+            position: 'absolute', right: 'calc(50% - 280px)', top: '50%', transform: 'translateY(-50%)',
+            width: 42, height: 42, borderRadius: '50%', background: '#fff',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer', boxShadow: '0 4px 16px rgba(0,0,0,.25)', zIndex: 10,
+          }}
+        >
+          <IcoChevronRight />
+        </div>
+      )}
     </div>
   );
 };
