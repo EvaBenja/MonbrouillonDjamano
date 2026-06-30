@@ -48,8 +48,8 @@ const QRCode = () => (
   </svg>
 );
 
-const CarteTicket = ({ label, type, prix, imgIdx }) => (
-  <div style={{borderRadius:14,overflow:'hidden',border:'1.5px solid #e8e8e8',boxShadow:'0 2px 12px rgba(0,0,0,.07)'}}>
+const CarteTicket = ({ label, type, prix, imgIdx, onClick }) => (
+  <div onClick={onClick} style={{borderRadius:14,overflow:'hidden',border:'1.5px solid #e8e8e8',boxShadow:'0 2px 12px rgba(0,0,0,.07)',cursor: onClick ? 'pointer' : 'default'}}>
     <div style={{position:'relative',height:130,overflow:'hidden'}}>
       <ImgFb src={getImg(imgIdx)} fallback={getFb(imgIdx)} style={{width:'100%',height:'100%'}}/>
       <div style={{position:'absolute',inset:0,background:'linear-gradient(to right,rgba(255,90,0,0.72) 0%,rgba(255,90,0,0.18) 100%)'}}/>
@@ -76,6 +76,117 @@ const IcoDL       = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="
 
 const onglets = ['Tickets','Elections','Stands','Support'];
 
+/* ── Logos moyens de paiement (style flat avec leurs couleurs propres) ── */
+const LogoOrangeMoney = () => (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:6,height:'100%'}}>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF6600" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+    <span style={{fontSize:11.5,fontWeight:700,color:'#111'}}>Orange Money</span>
+  </div>
+);
+const LogoWave = () => (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:6,height:'100%',background:'#1DC8E0',width:'100%',borderRadius:12}}>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="9" r="5"/><path d="M7 14c0 3 2 6 5 6s5-3 5-6" stroke="white" strokeWidth="1.5" fill="none"/></svg>
+    <span style={{fontSize:13,fontWeight:800,color:'#fff',fontStyle:'italic'}}>wave</span>
+  </div>
+);
+const LogoSankMoney = () => (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:5,height:'100%'}}>
+    <span style={{fontSize:13,fontWeight:800,color:'#E30613'}}>SankMoney</span>
+    <span style={{fontSize:8,color:'#888'}}>Une solution africaine</span>
+  </div>
+);
+const LogoMoovMoney = () => (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:6,height:'100%'}}>
+    <div style={{width:30,height:30,borderRadius:8,background:'#E2861E',display:'flex',alignItems:'center',justifyContent:'center',transform:'rotate(45deg)'}}>
+      <span style={{fontSize:9,fontWeight:800,color:'#fff',transform:'rotate(-45deg)'}}>M</span>
+    </div>
+    <span style={{fontSize:11,fontWeight:700,color:'#111'}}>Moov Money</span>
+  </div>
+);
+
+const MOYENS_PAIEMENT = [
+  { id:'orange', Logo: LogoOrangeMoney, bg:'#fff' },
+  { id:'wave',   Logo: LogoWave,        bg:'#1DC8E0' },
+  { id:'sank',   Logo: LogoSankMoney,   bg:'#fff' },
+  { id:'moov',   Logo: LogoMoovMoney,   bg:'#fff' },
+];
+
+/* ── Section "Payer Un Ticket" : ticket choisi + moyens de paiement ── */
+const SectionPaiement = ({ ticket, nbTickets, setNbTickets, isMobile }) => {
+  const [moyenChoisi, setMoyenChoisi] = useState('wave');
+
+  return (
+    <div style={{marginTop:40}}>
+      <div style={{display:'flex',alignItems:'center',gap:6,fontSize: isMobile?16:19,fontWeight:800,color:'#111',marginBottom:20,fontFamily:'Poppins,sans-serif'}}>
+        Payer Un Ticket
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+
+      <div style={{display:'grid',gridTemplateColumns: isMobile?'1fr':'1fr 1fr',gap: isMobile?24:36,alignItems:'start'}}>
+
+        {/* Carte du ticket choisi */}
+        <div style={{borderRadius:16,overflow:'hidden',border:'1px solid #efefef',boxShadow:'0 2px 14px rgba(0,0,0,.07)'}}>
+          <div style={{display:'flex',height: isMobile?150:170}}>
+            <div style={{flex:1,position:'relative',overflow:'hidden'}}>
+              <ImgFb src={getImg(ticket.imgIdx)} fallback={getFb(ticket.imgIdx)} style={{width:'100%',height:'100%'}}/>
+            </div>
+            <div style={{width: isMobile?110:140,background:'linear-gradient(135deg,#FF5A00,#ff8c00)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+              <div style={{background:'#fff',padding:8,borderRadius:8}}><QRCode/></div>
+            </div>
+          </div>
+          <div style={{padding:'14px 18px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+            <div>
+              <div style={{fontSize:15,fontWeight:700,color:'#111'}}>{ticket.label} <span style={{color:'#FF5A00'}}>{ticket.type}</span></div>
+              <div style={{fontSize:17,fontWeight:700,color:'#111',marginTop:4}}>{ticket.prix}</div>
+            </div>
+            <div style={{fontSize:13,color:'#22c55e',fontWeight:700}}>Disponible</div>
+          </div>
+        </div>
+
+        {/* Mode de paiement */}
+        <div>
+          <div style={{fontSize: isMobile?16:19,fontWeight:800,color:'#111',marginBottom:16,fontFamily:'Poppins,sans-serif'}}>Mode De Payement</div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:18}}>
+            {MOYENS_PAIEMENT.map(m=>(
+              <div
+                key={m.id}
+                onClick={()=>setMoyenChoisi(m.id)}
+                style={{
+                  height:74, borderRadius:12, background:m.bg,
+                  border: moyenChoisi===m.id ? '2px solid #FF5A00' : '1.5px solid #ececec',
+                  boxShadow: moyenChoisi===m.id ? '0 4px 14px rgba(255,90,0,.18)' : '0 1px 4px rgba(0,0,0,.05)',
+                  cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden',
+                  transition:'all .15s',
+                }}
+              >
+                <m.Logo/>
+              </div>
+            ))}
+          </div>
+
+          <div style={{display:'flex',gap:10,flexDirection: isMobile?'column':'row'}}>
+            <input
+              type="number"
+              min="1"
+              placeholder="Nombre de tickets"
+              value={nbTickets}
+              onChange={e=>setNbTickets(e.target.value)}
+              style={{flex:1,border:'1.5px solid #e8e8e8',borderRadius:11,padding:'14px 18px',fontSize:13.5,color:'#333',fontFamily:'Poppins,sans-serif',outline:'none'}}
+            />
+            <button style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:11,padding:'14px 36px',fontSize:14,fontWeight:700,cursor:'pointer',fontFamily:'Poppins,sans-serif',boxShadow:'0 4px 16px rgba(255,90,0,.3)'}}>
+              Payer
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div style={{fontSize:12.5,color:'#888',marginTop:18,fontFamily:'Poppins,sans-serif'}}>
+        Nombre de tickets restant : <strong style={{color:'#111'}}>{ticket.restant} sur {ticket.total}</strong>
+      </div>
+    </div>
+  );
+};
+
 const PageDetailEvenement = () => {
   const { id } = useParams();
   const { isMobile } = useResponsive();
@@ -83,6 +194,8 @@ const PageDetailEvenement = () => {
   const imgSrc = `/evenement${id||1}.jpg`;
   const [imgErr, setImgErr]      = useState(false);
   const [ongletActif, setOnglet] = useState('Tickets');
+  const [ticketChoisi, setTicketChoisi] = useState(null); // {label, type, prix, imgIdx, total, restant}
+  const [nbTickets, setNbTickets] = useState('');
 
   const p = isMobile ? '16px' : '28px 24px 52px';
 
@@ -152,12 +265,14 @@ const PageDetailEvenement = () => {
         {/* ── TICKETS ── */}
         {ongletActif==='Tickets' && (<>
           <div style={{display:'grid',gridTemplateColumns: isMobile?'1fr':'1fr 1fr',gap:16}}>
-            <CarteTicket label="Ticket" type="VIP"      prix="5.000 CFA" imgIdx={0}/>
-            <CarteTicket label="Ticket" type="STANDARD" prix="2.500 CFA" imgIdx={1}/>
+            <CarteTicket label="Ticket" type="VIP"      prix="5.000 CFA" imgIdx={0} onClick={()=>setTicketChoisi({label:'Ticket',type:'VIP',prix:'5.000 CFA',imgIdx:0,total:50,restant:10})}/>
+            <CarteTicket label="Ticket" type="STANDARD" prix="2.500 CFA" imgIdx={1} onClick={()=>setTicketChoisi({label:'Ticket',type:'STANDARD',prix:'2.500 CFA',imgIdx:1,total:80,restant:32})}/>
           </div>
-          <div style={{display:'flex',justifyContent:'center',marginTop:32}}>
-            <button style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:12,padding:'13px 52px',fontSize:14,fontWeight:600,cursor:'pointer',boxShadow:'0 6px 20px rgba(255,90,0,.35)',fontFamily:'Poppins,sans-serif',width: isMobile?'100%':'auto'}}>Payer un ticket</button>
-          </div>
+          {!ticketChoisi && (
+            <div style={{display:'flex',justifyContent:'center',marginTop:32}}>
+              <button onClick={()=>setTicketChoisi({label:'Ticket',type:'VIP',prix:'5.000 CFA',imgIdx:0,total:50,restant:10})} style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:12,padding:'13px 52px',fontSize:14,fontWeight:600,cursor:'pointer',boxShadow:'0 6px 20px rgba(255,90,0,.35)',fontFamily:'Poppins,sans-serif',width: isMobile?'100%':'auto'}}>Payer un ticket</button>
+            </div>
+          )}
         </>)}
 
         {/* ── ELECTIONS ── */}
@@ -183,12 +298,14 @@ const PageDetailEvenement = () => {
         {/* ── STANDS ── */}
         {ongletActif==='Stands' && (<>
           <div style={{display:'grid',gridTemplateColumns: isMobile?'1fr':'1fr 1fr',gap:16}}>
-            <CarteTicket label="Stand (9m x 9m)" type="VIP"      prix="50.000 CFA" imgIdx={4}/>
-            <CarteTicket label="Stand (9m x 9m)" type="STANDARD" prix="25.000 CFA" imgIdx={5}/>
+            <CarteTicket label="Stand (9m x 9m)" type="VIP"      prix="50.000 CFA" imgIdx={4} onClick={()=>setTicketChoisi({label:'Stand (9m x 9m)',type:'VIP',prix:'50.000 CFA',imgIdx:4,total:20,restant:6})}/>
+            <CarteTicket label="Stand (9m x 9m)" type="STANDARD" prix="25.000 CFA" imgIdx={5} onClick={()=>setTicketChoisi({label:'Stand (9m x 9m)',type:'STANDARD',prix:'25.000 CFA',imgIdx:5,total:30,restant:14})}/>
           </div>
-          <div style={{display:'flex',justifyContent:'center',marginTop:32}}>
-            <button style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:12,padding:'13px 52px',fontSize:14,fontWeight:600,cursor:'pointer',boxShadow:'0 6px 20px rgba(255,90,0,.35)',fontFamily:'Poppins,sans-serif',width: isMobile?'100%':'auto'}}>Payer un ticket</button>
-          </div>
+          {!ticketChoisi && (
+            <div style={{display:'flex',justifyContent:'center',marginTop:32}}>
+              <button onClick={()=>setTicketChoisi({label:'Stand (9m x 9m)',type:'VIP',prix:'50.000 CFA',imgIdx:4,total:20,restant:6})} style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:12,padding:'13px 52px',fontSize:14,fontWeight:600,cursor:'pointer',boxShadow:'0 6px 20px rgba(255,90,0,.35)',fontFamily:'Poppins,sans-serif',width: isMobile?'100%':'auto'}}>Payer un ticket</button>
+            </div>
+          )}
         </>)}
 
         {/* ── SUPPORT ── */}
@@ -197,6 +314,11 @@ const PageDetailEvenement = () => {
             <span style={{fontSize:14,fontWeight:600,color:'#333',fontFamily:'Poppins,sans-serif'}}>TDR</span>
             <IcoDL/>
           </div>
+        )}
+
+        {/* ── Section paiement (affichée quand un ticket/stand est choisi) ── */}
+        {ticketChoisi && (ongletActif==='Tickets' || ongletActif==='Stands') && (
+          <SectionPaiement ticket={ticketChoisi} nbTickets={nbTickets} setNbTickets={setNbTickets} isMobile={isMobile}/>
         )}
       </div>
       <StatistiquesBas/>
