@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BarreRechercheGlobale from '../composants-communs/BarreRechercheGlobale';
 import SectionReels from '../composants-communs/SectionReels';
+import StoryViewer from '../composants-communs/StoryViewer';
 import StatistiquesBas from '../composants-communs/StatistiquesBas';
 import PiedDePage from '../components/PiedDePage';
 import useResponsive from '../composants-communs/useResponsive';
@@ -15,18 +16,42 @@ const fallbacks = [
   'linear-gradient(145deg,#065f46,#10b981)','linear-gradient(145deg,#6d28d9,#8b5cf6)',
 ];
 const svcImg = id => `/services/service${id}.jpg`;
+const detailImg = n => `/detailsimages/details${(n % 6) + 1}.jpg`;
 
-/* Réels — basés sur les noms de la maquette Figma. nbStories varie le nombre de segments de l'anneau */
+/* Réels — basés sur les noms de la maquette Figma.
+   chaque profil a un tableau "stories" (img + description + vues) et un statut */
 const REELS = [
-  { nom:'MankSank',          img: svcImg(1),  nbStories: 1 },
-  { nom:'CATINE AFRICAINE',  img: svcImg(1),  nbStories: 4 },
-  { nom:'BSL COMMUNICATION', img: svcImg(4),  nbStories: 6 },
-  { nom:'LE GONDWANA',       img: svcImg(3),  nbStories: 3 },
-  { nom:'PTIT PARIS',        img: svcImg(5),  nbStories: 1 },
-  { nom:'KPI SECURITY SARL', img: svcImg(8),  nbStories: 5 },
-  { nom:'SWISS GLACES',      img: svcImg(11), nbStories: 2 },
-  { nom:'SALEM SONORE',      img: svcImg(12), nbStories: 4 },
-  { nom:'LA MAISON BLANCHE 4G', img: svcImg(7), nbStories: 1 },
+  { nom:'MankSank', statut:'Compte hybride', img: svcImg(1), nbStories: 1, stories:[
+    { img: detailImg(0), fallback:'linear-gradient(145deg,#92400e,#d97706)', description:"Un restaurant, galerie d'art, qui offre plusieurs espaces, chacun aménagé dans un style différent (maison Gourounsi, ...)", vues: 200 },
+  ]},
+  { nom:'CATINE AFRICAINE', statut:'Compte hybride', img: svcImg(1), nbStories: 4, stories:[
+    { img: detailImg(1), fallback:'linear-gradient(145deg,#065f46,#059669)', description:"Découvrez nos plats traditionnels burkinabè préparés avec passion.", vues: 320 },
+    { img: detailImg(2), fallback:'linear-gradient(145deg,#4338ca,#6366f1)', description:"Une ambiance chaleureuse pour vos repas en famille.", vues: 215 },
+    { img: detailImg(3), fallback:'linear-gradient(145deg,#be185d,#ec4899)', description:"Nouveaux plats disponibles cette semaine !", vues: 410 },
+    { img: detailImg(4), fallback:'linear-gradient(145deg,#dc2626,#ef4444)', description:"Réservez votre table dès maintenant.", vues: 180 },
+  ]},
+  { nom:'BSL COMMUNICATION', statut:'Compte professionnel', img: svcImg(4), nbStories: 6, stories: Array.from({length:6},(_,i)=>(
+    { img: detailImg(i), fallback: fallbacks[i % fallbacks.length], description:"Spécialiste en communication digitale événementielle.", vues: 150 + i*40 }
+  ))},
+  { nom:'LE GONDWANA', statut:'Compte hybride', img: svcImg(3), nbStories: 3, stories: Array.from({length:3},(_,i)=>(
+    { img: detailImg(i+1), fallback: fallbacks[(i+2) % fallbacks.length], description:"Un restaurant, galerie d'art, plusieurs espaces uniques.", vues: 200 + i*60 }
+  ))},
+  { nom:'PTIT PARIS', statut:'Compte hybride', img: svcImg(5), nbStories: 1, stories:[
+    { img: detailImg(5), fallback:'linear-gradient(145deg,#0891b2,#06b6d4)', description:"Restaurant Pâtisserie à Petit Paris, large gamme de plats.", vues: 280 },
+  ]},
+  { nom:'KPI SECURITY SARL', statut:'Compte professionnel', img: svcImg(8), nbStories: 5, stories: Array.from({length:5},(_,i)=>(
+    { img: detailImg(i+2), fallback: fallbacks[(i+3) % fallbacks.length], description:"Leader en sécurité évènementielle depuis plus d'une décennie.", vues: 190 + i*30 }
+  ))},
+  { nom:'SWISS GLACES', statut:'Compte hybride', img: svcImg(11), nbStories: 2, stories:[
+    { img: detailImg(0), fallback:'linear-gradient(145deg,#7c3aed,#8b5cf6)', description:"Location de machines Ice Cream pour tous événements.", vues: 145 },
+    { img: detailImg(1), fallback:'linear-gradient(145deg,#065f46,#10b981)', description:"Glaces artisanales pour vos célébrations.", vues: 210 },
+  ]},
+  { nom:'SALEM SONORE', statut:'Compte professionnel', img: svcImg(12), nbStories: 4, stories: Array.from({length:4},(_,i)=>(
+    { img: detailImg(i+3), fallback: fallbacks[(i+4) % fallbacks.length], description:"Le meilleur rapport qualité/prix pour vos salles de répète.", vues: 160 + i*25 }
+  ))},
+  { nom:'LA MAISON BLANCHE 4G', statut:'Compte hybride', img: svcImg(7), nbStories: 1, stories:[
+    { img: detailImg(2), fallback:'linear-gradient(145deg,#6d28d9,#8b5cf6)', description:"Discothèque de premier ordre à Bobo-Dioulasso.", vues: 305 },
+  ]},
 ];
 
 const SECTIONS = [
@@ -137,6 +162,7 @@ const PageServices = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const { isMobile } = useResponsive();
+  const [storyIndex, setStoryIndex] = useState(null); // index dans REELS, null = fermé
 
   return (
     <div style={{background:'#fff',minHeight:'100vh',fontFamily:'Poppins,sans-serif'}}>
@@ -144,7 +170,7 @@ const PageServices = () => {
         <BarreRechercheGlobale/>
       </div>
       <div style={{maxWidth:1160,margin:'0 auto',padding:isMobile?'32px 16px 0':'48px 28px 0'}}>
-        <SectionReels items={REELS} />
+        <SectionReels items={REELS} onSelect={(item, i) => setStoryIndex(i)} />
         {SECTIONS.map(sec=>(
           <SectionSlider key={sec.id} section={sec} onSelect={id=>navigate(`/services/${id}`)} isMobile={isMobile}/>
         ))}
@@ -152,6 +178,17 @@ const PageServices = () => {
       </div>
       <StatistiquesBas/>
       <PiedDePage/>
+
+      {/* ── Viewer de Story plein écran ── */}
+      {storyIndex !== null && (
+        <StoryViewer
+          profil={{ nom: REELS[storyIndex].nom, statut: REELS[storyIndex].statut, img: REELS[storyIndex].img, fallback: fallbacks[storyIndex % fallbacks.length] }}
+          stories={REELS[storyIndex].stories}
+          onClose={() => setStoryIndex(null)}
+          onNavigerProfilSuivant={() => setStoryIndex(i => (i < REELS.length - 1 ? i + 1 : null))}
+          onNavigerProfilPrecedent={() => setStoryIndex(i => (i > 0 ? i - 1 : i))}
+        />
+      )}
     </div>
   );
 };
