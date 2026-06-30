@@ -111,14 +111,18 @@ const MOYENS_PAIEMENT = [
   { id:'moov',   Logo: LogoMoovMoney,   bg:'#fff' },
 ];
 
-/* ── Section "Payer Un Ticket" : ticket choisi + moyens de paiement ── */
+/* ── Section "Payer Un Ticket / Payer Un Stand" : item choisi + moyens de paiement ── */
 const SectionPaiement = ({ ticket, nbTickets, setNbTickets, isMobile }) => {
   const [moyenChoisi, setMoyenChoisi] = useState('wave');
+  const estStand = ticket.label.toLowerCase().includes('stand');
+  const titreSection = estStand ? 'Payer Un Stand' : 'Payer Un Ticket';
+  const placeholderChamp = estStand ? 'Nombre de stands' : 'Nombre de tickets';
+  const labelRestant = estStand ? 'Nombre de stands restant' : 'Nombre de tickets restant';
 
   return (
     <div style={{marginTop:40}}>
       <div style={{display:'flex',alignItems:'center',gap:6,fontSize: isMobile?16:19,fontWeight:800,color:'#111',marginBottom:20,fontFamily:'Poppins,sans-serif'}}>
-        Payer Un Ticket
+        {titreSection}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
 
@@ -168,7 +172,7 @@ const SectionPaiement = ({ ticket, nbTickets, setNbTickets, isMobile }) => {
             <input
               type="number"
               min="1"
-              placeholder="Nombre de tickets"
+              placeholder={placeholderChamp}
               value={nbTickets}
               onChange={e=>setNbTickets(e.target.value)}
               style={{flex:1,border:'1.5px solid #e8e8e8',borderRadius:11,padding:'14px 18px',fontSize:13.5,color:'#333',fontFamily:'Poppins,sans-serif',outline:'none'}}
@@ -181,7 +185,7 @@ const SectionPaiement = ({ ticket, nbTickets, setNbTickets, isMobile }) => {
       </div>
 
       <div style={{fontSize:12.5,color:'#888',marginTop:18,fontFamily:'Poppins,sans-serif'}}>
-        Nombre de tickets restant : <strong style={{color:'#111'}}>{ticket.restant} sur {ticket.total}</strong>
+        {labelRestant} : <strong style={{color:'#111'}}>{ticket.restant} sur {ticket.total}</strong>
       </div>
     </div>
   );
@@ -303,7 +307,7 @@ const PageDetailEvenement = () => {
           </div>
           {!ticketChoisi && (
             <div style={{display:'flex',justifyContent:'center',marginTop:32}}>
-              <button onClick={()=>setTicketChoisi({label:'Stand (9m x 9m)',type:'VIP',prix:'50.000 CFA',imgIdx:4,total:20,restant:6})} style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:12,padding:'13px 52px',fontSize:14,fontWeight:600,cursor:'pointer',boxShadow:'0 6px 20px rgba(255,90,0,.35)',fontFamily:'Poppins,sans-serif',width: isMobile?'100%':'auto'}}>Payer un ticket</button>
+              <button onClick={()=>setTicketChoisi({label:'Stand (9m x 9m)',type:'VIP',prix:'50.000 CFA',imgIdx:4,total:20,restant:6})} style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:12,padding:'13px 52px',fontSize:14,fontWeight:600,cursor:'pointer',boxShadow:'0 6px 20px rgba(255,90,0,.35)',fontFamily:'Poppins,sans-serif',width: isMobile?'100%':'auto'}}>Payer un stand</button>
             </div>
           )}
         </>)}
