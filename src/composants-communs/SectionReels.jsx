@@ -41,14 +41,15 @@ const SectionReels = ({ items, onSelect }) => {
             onClick={() => onSelect && onSelect(item, i)}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, flexShrink: 0, cursor: 'pointer', width: taille + 8 }}
           >
-            {/* Anneau orange en pointillés */}
+            {/* Anneau orange en arcs pleins (style story) */}
             <div style={{
               width: taille, height: taille, borderRadius: '50%',
-              border: '2.5px dashed #FF5A00', padding: 4,
+              background: 'conic-gradient(#FF5A00 0deg 80deg, transparent 80deg 90deg, #FF5A00 90deg 170deg, transparent 170deg 180deg, #FF5A00 180deg 260deg, transparent 260deg 270deg, #FF5A00 270deg 350deg, transparent 350deg 360deg)',
+              padding: 3,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxSizing: 'border-box', background: '#fff',
+              boxSizing: 'border-box',
             }}>
-              <div style={{ width: '100%', height: '100%', borderRadius: '50%', overflow: 'hidden', background: '#eee' }}>
+              <div style={{ width: '100%', height: '100%', borderRadius: '50%', overflow: 'hidden', background: '#eee', border: '2px solid #fff' }}>
                 <AvatarReel src={item.img} fallback={fallbacks[i % fallbacks.length]} />
               </div>
             </div>
