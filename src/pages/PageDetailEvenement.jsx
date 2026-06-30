@@ -130,33 +130,33 @@ const SectionPaiement = ({ ticket, nbTickets, setNbTickets, isMobile }) => {
 
         {/* Carte du ticket choisi */}
         <div style={{borderRadius:16,overflow:'hidden',border:'1px solid #efefef',boxShadow:'0 2px 14px rgba(0,0,0,.07)'}}>
-          <div style={{display:'flex',height: isMobile?150:170}}>
+          <div style={{display:'flex',height: isMobile?130:170}}>
             <div style={{flex:1,position:'relative',overflow:'hidden'}}>
               <ImgFb src={getImg(ticket.imgIdx)} fallback={getFb(ticket.imgIdx)} style={{width:'100%',height:'100%'}}/>
             </div>
-            <div style={{width: isMobile?110:140,background:'linear-gradient(135deg,#FF5A00,#ff8c00)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-              <div style={{background:'#fff',padding:8,borderRadius:8}}><QRCode/></div>
+            <div style={{width: isMobile?90:140,background:'linear-gradient(135deg,#FF5A00,#ff8c00)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+              <div style={{background:'#fff',padding: isMobile?6:8,borderRadius:8}}><QRCode/></div>
             </div>
           </div>
-          <div style={{padding:'14px 18px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <div style={{padding: isMobile?'12px 14px':'14px 18px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:6}}>
             <div>
-              <div style={{fontSize:15,fontWeight:700,color:'#111'}}>{ticket.label} <span style={{color:'#FF5A00'}}>{ticket.type}</span></div>
-              <div style={{fontSize:17,fontWeight:700,color:'#111',marginTop:4}}>{ticket.prix}</div>
+              <div style={{fontSize: isMobile?13:15,fontWeight:700,color:'#111'}}>{ticket.label} <span style={{color:'#FF5A00'}}>{ticket.type}</span></div>
+              <div style={{fontSize: isMobile?15:17,fontWeight:700,color:'#111',marginTop:4}}>{ticket.prix}</div>
             </div>
-            <div style={{fontSize:13,color:'#22c55e',fontWeight:700}}>Disponible</div>
+            <div style={{fontSize: isMobile?12:13,color:'#22c55e',fontWeight:700}}>Disponible</div>
           </div>
         </div>
 
         {/* Mode de paiement */}
         <div>
           <div style={{fontSize: isMobile?16:19,fontWeight:800,color:'#111',marginBottom:16,fontFamily:'Poppins,sans-serif'}}>Mode De Payement</div>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:18}}>
+          <div style={{display:'grid',gridTemplateColumns: isMobile?'repeat(2,1fr)':'repeat(4,1fr)',gap: isMobile?8:10,marginBottom:18}}>
             {MOYENS_PAIEMENT.map(m=>(
               <div
                 key={m.id}
                 onClick={()=>setMoyenChoisi(m.id)}
                 style={{
-                  height:74, borderRadius:12, background:m.bg,
+                  height: isMobile?64:74, borderRadius:12, background:m.bg,
                   border: moyenChoisi===m.id ? '2px solid #FF5A00' : '1.5px solid #ececec',
                   boxShadow: moyenChoisi===m.id ? '0 4px 14px rgba(255,90,0,.18)' : '0 1px 4px rgba(0,0,0,.05)',
                   cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden',
@@ -175,16 +175,16 @@ const SectionPaiement = ({ ticket, nbTickets, setNbTickets, isMobile }) => {
               placeholder={placeholderChamp}
               value={nbTickets}
               onChange={e=>setNbTickets(e.target.value)}
-              style={{flex:1,border:'1.5px solid #e8e8e8',borderRadius:11,padding:'14px 18px',fontSize:13.5,color:'#333',fontFamily:'Poppins,sans-serif',outline:'none'}}
+              style={{flex:1,border:'1.5px solid #e8e8e8',borderRadius:11,padding: isMobile?'13px 16px':'14px 18px',fontSize:13.5,color:'#333',fontFamily:'Poppins,sans-serif',outline:'none',width: isMobile?'100%':'auto',boxSizing:'border-box'}}
             />
-            <button style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:11,padding:'14px 36px',fontSize:14,fontWeight:700,cursor:'pointer',fontFamily:'Poppins,sans-serif',boxShadow:'0 4px 16px rgba(255,90,0,.3)'}}>
+            <button style={{background:'linear-gradient(135deg,#FF5A00,#ff8c00)',color:'#fff',border:'none',borderRadius:11,padding: isMobile?'14px 0':'14px 36px',fontSize:14,fontWeight:700,cursor:'pointer',fontFamily:'Poppins,sans-serif',boxShadow:'0 4px 16px rgba(255,90,0,.3)',width: isMobile?'100%':'auto'}}>
               Payer
             </button>
           </div>
         </div>
       </div>
 
-      <div style={{fontSize:12.5,color:'#888',marginTop:18,fontFamily:'Poppins,sans-serif'}}>
+      <div style={{fontSize:12.5,color:'#888',marginTop:18,fontFamily:'Poppins,sans-serif',textAlign: isMobile?'center':'left'}}>
         {labelRestant} : <strong style={{color:'#111'}}>{ticket.restant} sur {ticket.total}</strong>
       </div>
     </div>
