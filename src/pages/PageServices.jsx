@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BarreRechercheGlobale from '../composants-communs/BarreRechercheGlobale';
+import SectionReels from '../composants-communs/SectionReels';
 import StatistiquesBas from '../composants-communs/StatistiquesBas';
 import PiedDePage from '../components/PiedDePage';
 import useResponsive from '../composants-communs/useResponsive';
@@ -14,6 +15,19 @@ const fallbacks = [
   'linear-gradient(145deg,#065f46,#10b981)','linear-gradient(145deg,#6d28d9,#8b5cf6)',
 ];
 const svcImg = id => `/services/service${id}.jpg`;
+
+/* Réels — basés sur les noms de la maquette Figma */
+const REELS = [
+  { nom:'MankSank',          img: svcImg(1) },
+  { nom:'CATINE AFRICAINE',  img: svcImg(1) },
+  { nom:'BSL COMMUNICATION', img: svcImg(4) },
+  { nom:'LE GONDWANA',       img: svcImg(3) },
+  { nom:'PTIT PARIS',        img: svcImg(5) },
+  { nom:'KPI SECURITY SARL', img: svcImg(8) },
+  { nom:'SWISS GLACES',      img: svcImg(11) },
+  { nom:'SALEM SONORE',      img: svcImg(12) },
+  { nom:'LA MAISON BLANCHE 4G', img: svcImg(7) },
+];
 
 const SECTIONS = [
   { id:'proche', titre:'Services · proche de vous', items:[
@@ -130,6 +144,7 @@ const PageServices = () => {
         <BarreRechercheGlobale/>
       </div>
       <div style={{maxWidth:1160,margin:'0 auto',padding:isMobile?'32px 16px 0':'48px 28px 0'}}>
+        <SectionReels items={REELS} />
         {SECTIONS.map(sec=>(
           <SectionSlider key={sec.id} section={sec} onSelect={id=>navigate(`/services/${id}`)} isMobile={isMobile}/>
         ))}
