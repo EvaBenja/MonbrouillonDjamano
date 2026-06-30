@@ -17,9 +17,27 @@ const fallbacks = [
   'linear-gradient(145deg,#0369a1,#0284c7)',
 ];
 
+/* Génère un conic-gradient avec N segments orange séparés par de petits espaces.
+   1 story = anneau plein, 4 stories = 4 arcs, 6 stories = 6 arcs, etc. */
+const genererAnneau = (nbStories = 1) => {
+  const n = Math.max(1, nbStories);
+  if (n === 1) return '#FF5A00';
+  const gap = 8; // degrés d'espace entre segments
+  const segAngle = 360 / n;
+  let stops = [];
+  for (let i = 0; i < n; i++) {
+    const start = i * segAngle;
+    const end = start + segAngle - gap;
+    stops.push(`#FF5A00 ${start}deg ${end}deg`);
+    stops.push(`transparent ${end}deg ${start + segAngle}deg`);
+  }
+  return `conic-gradient(${stops.join(', ')})`;
+};
+
 /**
  * Section "Réels" — façon stories WhatsApp/Instagram.
- * items: [{ nom: string, img: string (chemin) }]
+ * items: [{ nom: string, img: string, nbStories?: number }]
+ * nbStories détermine le nombre de segments de l'anneau (défaut 1 = cercle plein).
  */
 const SectionReels = ({ items, onSelect }) => {
   const { isMobile } = useResponsive();
@@ -41,10 +59,10 @@ const SectionReels = ({ items, onSelect }) => {
             onClick={() => onSelect && onSelect(item, i)}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, flexShrink: 0, cursor: 'pointer', width: taille + 8 }}
           >
-            {/* Anneau orange en arcs pleins (style story) */}
+            {/* Anneau orange — nombre de segments selon nbStories */}
             <div style={{
               width: taille, height: taille, borderRadius: '50%',
-              background: 'conic-gradient(#FF5A00 0deg 80deg, transparent 80deg 90deg, #FF5A00 90deg 170deg, transparent 170deg 180deg, #FF5A00 180deg 260deg, transparent 260deg 270deg, #FF5A00 270deg 350deg, transparent 350deg 360deg)',
+              background: genererAnneau(item.nbStories),
               padding: 3,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               boxSizing: 'border-box',

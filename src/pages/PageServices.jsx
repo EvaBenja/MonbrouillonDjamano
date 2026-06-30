@@ -16,17 +16,17 @@ const fallbacks = [
 ];
 const svcImg = id => `/services/service${id}.jpg`;
 
-/* Réels — basés sur les noms de la maquette Figma */
+/* Réels — basés sur les noms de la maquette Figma. nbStories varie le nombre de segments de l'anneau */
 const REELS = [
-  { nom:'MankSank',          img: svcImg(1) },
-  { nom:'CATINE AFRICAINE',  img: svcImg(1) },
-  { nom:'BSL COMMUNICATION', img: svcImg(4) },
-  { nom:'LE GONDWANA',       img: svcImg(3) },
-  { nom:'PTIT PARIS',        img: svcImg(5) },
-  { nom:'KPI SECURITY SARL', img: svcImg(8) },
-  { nom:'SWISS GLACES',      img: svcImg(11) },
-  { nom:'SALEM SONORE',      img: svcImg(12) },
-  { nom:'LA MAISON BLANCHE 4G', img: svcImg(7) },
+  { nom:'MankSank',          img: svcImg(1),  nbStories: 1 },
+  { nom:'CATINE AFRICAINE',  img: svcImg(1),  nbStories: 4 },
+  { nom:'BSL COMMUNICATION', img: svcImg(4),  nbStories: 6 },
+  { nom:'LE GONDWANA',       img: svcImg(3),  nbStories: 3 },
+  { nom:'PTIT PARIS',        img: svcImg(5),  nbStories: 1 },
+  { nom:'KPI SECURITY SARL', img: svcImg(8),  nbStories: 5 },
+  { nom:'SWISS GLACES',      img: svcImg(11), nbStories: 2 },
+  { nom:'SALEM SONORE',      img: svcImg(12), nbStories: 4 },
+  { nom:'LA MAISON BLANCHE 4G', img: svcImg(7), nbStories: 1 },
 ];
 
 const SECTIONS = [
