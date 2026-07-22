@@ -24,6 +24,7 @@ import PageExperiences        from './pages/PageExperiences';
 import PageDetailExperience   from './pages/PageDetailExperience';
 import PageServices           from './pages/PageServices';
 import PageDetailService      from './pages/PageDetailService';
+import PageProfil             from './pages/PageProfil';
 
 /* ══ Landing page ══ */
 const LandingPage = () => (
@@ -67,6 +68,7 @@ function App() {
         {/* Services */}
         <Route path="/services"              element={<AvecNavbar><PageServices /></AvecNavbar>} />
         <Route path="/services/:id"          element={<PageDetailService />} />
+        <Route path="/profil"               element={<PageProfil />} />
       </Routes>
     </BrowserRouter>
   );
