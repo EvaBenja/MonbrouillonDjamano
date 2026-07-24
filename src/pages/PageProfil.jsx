@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavbarPages from '../composants-communs/NavbarPages';
 import StatistiquesBas from '../composants-communs/StatistiquesBas';
 import PiedDePage from '../components/PiedDePage';
@@ -78,6 +78,7 @@ const FiltresCats = ({ active, setActive }) => (
 
 const PageProfil = () => {
   const { isMobile } = useResponsive();
+  const navigate = useNavigate();
   const [catSvc, setCatSvc]     = useState('Tout');
   const [catEvt, setCatEvt]     = useState('Tout');
   const [ongletStats, setOngletStats] = useState('Populaire');
@@ -209,8 +210,8 @@ const PageProfil = () => {
                     <div style={{fontSize:13,fontWeight:800,color:'#111',textTransform:'uppercase',marginBottom:6}}>SALLE CLIMATISÉE</div>
                     <p style={{fontSize:12,color:'#666',lineHeight:1.6,marginBottom:12}}>Plongez Dans Une Bulle De Fraîcheur Instantanée. Grâce À Notre Système De Climatisation Intelligente De Dernière Génération, Nous Vous Garantissons Une Température Constante...</p>
                     <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
-                      <BtnOutline>Modifier</BtnOutline>
-                      <BtnOutline><IcoStats/> Statistiques</BtnOutline>
+                      <BtnOutline onClick={()=>navigate(`/modifier-evenement/${i+1}`)}>Modifier</BtnOutline>
+                      <BtnOutline onClick={()=>navigate(`/statistiques-evenement/${i+1}`)}><IcoStats/> Statistiques</BtnOutline>
                       <BtnOutline red>Supprimer</BtnOutline>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavbarPages from '../composants-communs/NavbarPages';
 import PiedDePage from '../components/PiedDePage';
 import useResponsive from '../composants-communs/useResponsive';
@@ -39,6 +39,7 @@ const Img = ({ src, fallback }) => {
 
 const PageMesEvenements = () => {
   const { isMobile } = useResponsive();
+  const navigate = useNavigate();
   const [periode, setPeriode] = useState('7 Derniers Jours');
   const [dropOpen, setDropOpen] = useState(false);
 
@@ -96,8 +97,8 @@ const PageMesEvenements = () => {
                 <div style={{ fontSize:13.5, fontWeight:800, color:'#111', textTransform:'uppercase', marginBottom:8 }}>{ev.titre}</div>
                 <p style={{ fontSize:12, color:'#666', lineHeight:1.65, marginBottom:14 }}>{ev.description}</p>
                 <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
-                  <BtnOutline>Modifier</BtnOutline>
-                  <BtnOutline><IcoStats/> Statistiques</BtnOutline>
+                  <BtnOutline onClick={()=>navigate(`/modifier-evenement/${ev.id}`)}>Modifier</BtnOutline>
+                  <BtnOutline onClick={()=>navigate(`/statistiques-evenement/${ev.id}`)}><IcoStats/> Statistiques</BtnOutline>
                   <BtnOutline red>Supprimer</BtnOutline>
                 </div>
               </div>
