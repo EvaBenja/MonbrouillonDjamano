@@ -27,6 +27,7 @@ import PageDetailService      from './pages/PageDetailService';
 import PageProfil             from './pages/PageProfil';
 import PageProposerService     from './pages/PageProposerService';
 import PageMesEvenements       from './pages/PageMesEvenements';
+import PageModifierEvenement   from './pages/PageModifierEvenement';
 
 /* ══ Landing page ══ */
 const LandingPage = () => (
@@ -73,6 +74,8 @@ function App() {
         <Route path="/profil"               element={<PageProfil />} />
         <Route path="/proposer-service"     element={<PageProposerService />} />
         <Route path="/mes-evenements"       element={<PageMesEvenements />} />
+        <Route path="/modifier-evenement/:id" element={<PageModifierEvenement />} />
+        <Route path="/creer-evenement"      element={<PageModifierEvenement />} />
       </Routes>
     </BrowserRouter>
   );
