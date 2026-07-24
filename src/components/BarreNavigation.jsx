@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ModalChoixEvenement from '../composants-communs/ModalChoixEvenement';
 
 const IconHome = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -52,6 +53,7 @@ const Navbar = () => {
   const [lang, setLang] = useState('FR');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [modalEvenement, setModalEvenement] = useState(false);
   const modalRef = useRef(null);
   const menuRef = useRef(null);
 
@@ -121,6 +123,7 @@ const Navbar = () => {
   };
 
   return (
+    <>
     <nav style={styles.nav} ref={menuRef}>
       <div style={styles.container}>
         <button style={styles.logoArea} onClick={() => goTo('accueil')}>
@@ -130,6 +133,7 @@ const Navbar = () => {
         {!isMobile ? (
           <div style={styles.menu}>
             <button style={styles.menuBtn} onClick={() => goTo('accueil')}><IconHome /> Accueil</button>
+            <button style={styles.menuBtn} onClick={() => setModalEvenement(true)}><IconServices /> Évènements</button>
             <button style={styles.menuBtn} onClick={() => goTo('AISection')}><IconAI /> Djamano ai</button>
             <button style={styles.menuBtn} onClick={() => goTo('/services')}><IconServices /> Services</button>
             <button style={styles.menuBtn} onClick={() => goTo('WhatIsSection')}><IconAbout /> A propos</button>
@@ -156,6 +160,7 @@ const Navbar = () => {
         {isMobile && isMobileMenuOpen && (
           <div style={styles.mobileMenu}>
             <button style={styles.mobileMenuBtn} onClick={() => goTo('accueil')}><IconHome /> Accueil</button>
+            <button style={styles.mobileMenuBtn} onClick={() => { setIsMobileMenuOpen(false); setModalEvenement(true); }}><IconServices /> Évènements</button>
             <button style={styles.mobileMenuBtn} onClick={() => goTo('AISection')}><IconAI /> Djamano ai</button>
             <button style={styles.mobileMenuBtn} onClick={() => goTo('/services')}><IconServices /> Services</button>
             <button style={styles.mobileMenuBtn} onClick={() => goTo('WhatIsSection')}><IconAbout /> A propos</button>
@@ -163,6 +168,8 @@ const Navbar = () => {
         )}
       </div>
     </nav>
+    {modalEvenement && <ModalChoixEvenement onClose={() => setModalEvenement(false)} />}
+  </>
   );
 };
 
