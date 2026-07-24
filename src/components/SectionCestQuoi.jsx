@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const WhatIsSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
+  const navigate = useNavigate();
 
 
   const togglePlay = () => {
@@ -80,7 +82,7 @@ const WhatIsSection = () => {
         </h2>
         
         <div style={s.btns}>
-          <button style={s.btnOrange}>Créer un évènement</button>
+          <button onClick={() => navigate('/creer-evenement')} style={s.btnOrange}>Créer un évènement</button>
         </div>
         
       
