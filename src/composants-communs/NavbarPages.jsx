@@ -69,14 +69,14 @@ const NavbarPages = () => {
             </div>
           )}
 
-          {/* Bouton Créer un évènement visible (desktop) */}
+          {/* Bouton Choisir son profil visible (desktop) */}
           {!isMobile && (
             <button
               onClick={() => setModalEvenement(true)}
               style={{ background:'linear-gradient(135deg,#FF5A00,#ff8c00)', color:'#fff', border:'none', borderRadius:10, padding:'9px 18px', fontSize:13, fontWeight:700, cursor:'pointer', fontFamily:'Poppins,sans-serif', display:'flex', alignItems:'center', gap:6, boxShadow:'0 3px 10px rgba(255,90,0,.3)', whiteSpace:'nowrap' }}
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Créer un évènement
+              Choisir son profil
             </button>
           )}
 
