@@ -91,11 +91,11 @@ const ZonePhoto = ({ prefilledSrc }) => {
 };
 
 /* Ligne type ticket/stand */
-const LigneType = ({ nom, onRemove }) => (
+const LigneType = ({ nom, nbr=25, prix='2.000 FCFA', onRemove }) => (
   <div style={{ border:'1.5px solid #e8e8e8', borderRadius:12, padding:'14px 18px', display:'flex', alignItems:'center', gap:16, marginBottom:10, background:'#fff' }}>
     <span style={{ fontSize:14, color:'#333', flex:1, fontFamily:'Poppins,sans-serif' }}>{nom}</span>
-    <span style={{ fontSize:13, color:'#555' }}>Nbr: 25</span>
-    <span style={{ fontSize:13, color:'#FF5A00', fontWeight:700 }}>Prix: 2.000 FCFA</span>
+    <span style={{ fontSize:13, color:'#555' }}>Nbr: {nbr}</span>
+    <span style={{ fontSize:13, color:'#FF5A00', fontWeight:700 }}>Prix: {prix}</span>
     <div onClick={onRemove} style={{ cursor:'pointer', padding:4 }}><IcoClose/></div>
   </div>
 );
@@ -111,14 +111,25 @@ const LigneCandidат = ({ nom, onRemove }) => (
 
 /* Section Tickets / Stands avec structure identique */
 const SectionBillet = ({ titre, typeLabel, addLabel, icon }) => {
-  const [actif, setActif]   = useState(true);
-  const [types, setTypes]   = useState([
-    { id:1, nom: typeLabel==='Type de ticket'?'Etudiant':'Grand' },
-    { id:2, nom: typeLabel==='Type de ticket'?'Standard':'Moyen' },
+  const [actif, setActif]     = useState(true);
+  const [types, setTypes]     = useState([
+    { id:1, nom: typeLabel==='Type de ticket'?'Etudiant':'Grand',   nbr:25, prix:'2.000 FCFA' },
+    { id:2, nom: typeLabel==='Type de ticket'?'Standard':'Moyen',   nbr:25, prix:'2.000 FCFA' },
   ]);
-  const total = types.reduce((s)=>s+25, 0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [form, setForm]           = useState({ nom:'', description:'', prix:'', quantite:'' });
+
+  const total  = types.reduce((s,t)=>s+t.nbr, 0);
   const remove = id => setTypes(t=>t.filter(x=>x.id!==id));
-  const add = () => setTypes(t=>[...t, { id:Date.now(), nom:`${titre} ${t.length+1}` }]);
+
+  const enregistrer = () => {
+    if (!form.nom.trim()) return;
+    setTypes(t=>[...t, { id:Date.now(), nom:form.nom, nbr:parseInt(form.quantite)||25, prix:`${form.prix||'2.000'} FCFA` }]);
+    setForm({ nom:'', description:'', prix:'', quantite:'' });
+    setModalOpen(false);
+  };
+
+  const modalInput = { background:'transparent', border:'1.5px solid rgba(255,255,255,0.25)', borderRadius:12, padding:'14px 18px', fontSize:14, color:'#fff', fontFamily:'Poppins,sans-serif', outline:'none', width:'100%', boxSizing:'border-box' };
 
   return (
     <div style={{ marginBottom:36 }}>
@@ -129,8 +140,8 @@ const SectionBillet = ({ titre, typeLabel, addLabel, icon }) => {
             {/* Gauche */}
             <div>
               <div style={{ fontSize:14, fontWeight:700, color:'#111', textAlign:'center', marginBottom:14, fontFamily:'Poppins,sans-serif' }}>{typeLabel}</div>
-              {types.map(t=><LigneType key={t.id} nom={t.nom} onRemove={()=>remove(t.id)}/>)}
-              <BtnOrange onClick={add}>{addLabel} <IcoPlus/></BtnOrange>
+              {types.map(t=><LigneType key={t.id} nom={t.nom} nbr={t.nbr} prix={t.prix} onRemove={()=>remove(t.id)}/>)}
+              <BtnOrange onClick={()=>setModalOpen(true)}>{addLabel} <IcoPlus/></BtnOrange>
               <div style={{ fontSize:12.5, color:'#888', marginTop:10, fontFamily:'Poppins,sans-serif' }}>
                 Nombre de {titre.toLowerCase()} total : {total}
               </div>
@@ -143,6 +154,66 @@ const SectionBillet = ({ titre, typeLabel, addLabel, icon }) => {
               </div>
               <textarea placeholder="Politique de remboursement" style={{ ...inputStyle, height:120, resize:'vertical' }}/>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Modal sombre "Ajouter un type" ── */}
+      {modalOpen && (
+        <div
+          onClick={()=>setModalOpen(false)}
+          style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.5)', zIndex:1000, display:'flex', alignItems:'center', justifyContent:'center', padding:20 }}
+        >
+          <div
+            onClick={e=>e.stopPropagation()}
+            style={{ background:'#2d2d2d', borderRadius:20, padding:36, width:'100%', maxWidth:560, boxShadow:'0 20px 60px rgba(0,0,0,.5)' }}
+          >
+            {/* Titre modal */}
+            <div style={{ display:'flex', alignItems:'center', gap:8, fontSize:18, fontWeight:800, color:'#fff', marginBottom:24, fontFamily:'Poppins,sans-serif' }}>
+              {addLabel}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+
+            {/* Champ Nom */}
+            <input
+              placeholder="Nom"
+              value={form.nom}
+              onChange={e=>setForm(f=>({...f,nom:e.target.value}))}
+              style={{ ...modalInput, marginBottom:14 }}
+            />
+
+            {/* Champ Description */}
+            <input
+              placeholder="Description"
+              value={form.description}
+              onChange={e=>setForm(f=>({...f,description:e.target.value}))}
+              style={{ ...modalInput, marginBottom:14 }}
+            />
+
+            {/* Prix + Quantité côte à côte */}
+            <div style={{ display:'flex', gap:12, marginBottom:28 }}>
+              <input
+                placeholder="Prix"
+                value={form.prix}
+                onChange={e=>setForm(f=>({...f,prix:e.target.value}))}
+                style={{ ...modalInput }}
+              />
+              <input
+                placeholder="Quantité"
+                type="number"
+                value={form.quantite}
+                onChange={e=>setForm(f=>({...f,quantite:e.target.value}))}
+                style={{ ...modalInput }}
+              />
+            </div>
+
+            {/* Bouton Enregistrer */}
+            <button
+              onClick={enregistrer}
+              style={{ background:'linear-gradient(135deg,#FF5A00,#ff8c00)', color:'#fff', border:'none', borderRadius:12, padding:'14px 36px', fontSize:15, fontWeight:700, cursor:'pointer', fontFamily:'Poppins,sans-serif', boxShadow:'0 6px 20px rgba(255,90,0,.4)' }}
+            >
+              Enregistrer
+            </button>
           </div>
         </div>
       )}
