@@ -137,6 +137,12 @@ const Navbar = () => {
             <button style={styles.menuBtn} onClick={() => goTo('AISection')}><IconAI /> Djamano ai</button>
             <button style={styles.menuBtn} onClick={() => goTo('/services')}><IconServices /> Services</button>
             <button style={styles.menuBtn} onClick={() => goTo('WhatIsSection')}><IconAbout /> A propos</button>
+            <button
+              onClick={() => setModalEvenement(true)}
+              style={{ background:'linear-gradient(135deg,#FF5A00,#ff8c00)', color:'#fff', border:'none', borderRadius:10, padding:'9px 18px', fontSize:13, fontWeight:700, cursor:'pointer', fontFamily:'Poppins,sans-serif', display:'flex', alignItems:'center', gap:6, boxShadow:'0 3px 10px rgba(255,90,0,.3)', whiteSpace:'nowrap' }}
+            >
+              + Créer un évènement
+            </button>
           </div>
         ) : (
           <button style={styles.hamburgerBtn} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
