@@ -62,7 +62,7 @@ const PageMesEvenements = () => {
         </div>
 
         {/* Dropdown période */}
-        <div style={{ position:'relative', display:'inline-block', marginBottom:28 }}>
+        <div style={{ position:'relative', display:'inline-block', marginBottom:28, width:isMobile?'100%':'auto' }}>
           <div
             onClick={() => setDropOpen(o=>!o)}
             style={{ display:'flex', alignItems:'center', gap:10, border:'1.5px solid #e0e0e0', borderRadius:24, padding:'10px 20px', fontSize:14, fontWeight:600, color:'#333', cursor:'pointer', background:'#fff', fontFamily:'Poppins,sans-serif', userSelect:'none' }}

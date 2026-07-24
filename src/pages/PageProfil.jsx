@@ -176,7 +176,7 @@ const PageProfil = () => {
           <div>
             <TitreSection titre="Mes services" onClick={()=>navigate("/proposer-service")}/>
             <FiltresCats active={catSvc} setActive={setCatSvc}/>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
+            <div style={{display:'grid',gridTemplateColumns:isMobile?'repeat(2,1fr)':'repeat(3,1fr)',gap:isMobile?8:10}}>
               {[0,1,2,3,4,5].map(i=>(
                 <div key={i} style={{border:'1px solid #efefef',borderRadius:10,overflow:'hidden',boxShadow:'0 1px 4px rgba(0,0,0,.04)'}}>
                   <div style={{position:'relative',height:isMobile?70:85,overflow:'hidden'}}>

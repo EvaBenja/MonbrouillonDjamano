@@ -1,4 +1,5 @@
 import React from 'react';
+import useResponsive from './useResponsive';
 import { useNavigate } from 'react-router-dom';
 
 const IcoVisiteur = () => (
@@ -27,6 +28,7 @@ const IcoClose = () => (
 
 const ModalChoixEvenement = ({ onClose }) => {
   const navigate = useNavigate();
+  const { isMobile } = useResponsive();
 
   const choisir = (type) => {
     onClose();
@@ -41,7 +43,7 @@ const ModalChoixEvenement = ({ onClose }) => {
     >
       <div
         onClick={e => e.stopPropagation()}
-        style={{ background:'#fff', borderRadius:20, padding:36, width:'100%', maxWidth:520, boxShadow:'0 20px 60px rgba(0,0,0,.18)', position:'relative' }}
+        style={{ background:'#fff', borderRadius:20, padding:isMobile?20:36, width:'100%', maxWidth:520, boxShadow:'0 20px 60px rgba(0,0,0,.18)', position:'relative' }}
       >
         {/* Bouton fermer */}
         <div onClick={onClose} style={{ position:'absolute', top:16, right:16, width:32, height:32, borderRadius:'50%', background:'#f5f5f5', display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer' }}>
@@ -57,7 +59,7 @@ const ModalChoixEvenement = ({ onClose }) => {
         </div>
 
         {/* 2 cartes */}
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
+        <div style={{ display:'grid', gridTemplateColumns:isMobile?'1fr':'1fr 1fr', gap:16 }}>
 
           {/* Visiteur */}
           <div

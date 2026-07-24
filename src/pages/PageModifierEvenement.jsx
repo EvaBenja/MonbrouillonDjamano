@@ -110,7 +110,7 @@ const LigneCandidат = ({ nom, onRemove }) => (
 );
 
 /* Section Tickets / Stands avec structure identique */
-const SectionBillet = ({ titre, typeLabel, addLabel, icon }) => {
+const SectionBillet = ({ titre, typeLabel, addLabel, icon, isMobile }) => {
   const [actif, setActif]     = useState(true);
   const [types, setTypes]     = useState([
     { id:1, nom: typeLabel==='Type de ticket'?'Etudiant':'Grand',   nbr:25, prix:'2.000 FCFA' },
@@ -136,7 +136,7 @@ const SectionBillet = ({ titre, typeLabel, addLabel, icon }) => {
       <Toggle label={titre} icon={icon} value={actif} onChange={setActif}/>
       {actif && (
         <div style={{ border:'1.5px solid #e8e8e8', borderRadius:16, padding:24, background:'#fafafa' }}>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:20 }}>
+          <div style={{ display:'grid', gridTemplateColumns:isMobile?'1fr':'1fr 1fr', gap:isMobile?16:20 }}>
             {/* Gauche */}
             <div>
               <div style={{ fontSize:14, fontWeight:700, color:'#111', textAlign:'center', marginBottom:14, fontFamily:'Poppins,sans-serif' }}>{typeLabel}</div>
@@ -191,7 +191,7 @@ const SectionBillet = ({ titre, typeLabel, addLabel, icon }) => {
             />
 
             {/* Prix + Quantité côte à côte */}
-            <div style={{ display:'flex', gap:12, marginBottom:28 }}>
+            <div style={{ display:'flex', flexDirection:isMobile?'column':'row', gap:12, marginBottom:28 }}>
               <input
                 placeholder="Prix"
                 value={form.prix}
@@ -239,7 +239,7 @@ const SectionElection = () => {
       <Toggle label="Election" icon={<IcoElect/>} value={actif} onChange={setActif}/>
       {actif && elections.map(el=>(
         <div key={el.id} style={{ border:'1.5px solid #e8e8e8', borderRadius:16, padding:24, background:'#fafafa', marginBottom:16 }}>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:20 }}>
+          <div style={{ display:'grid', gridTemplateColumns:isMobile?'1fr':'1fr 1fr', gap:isMobile?16:20 }}>
             {/* Gauche */}
             <div>
               <div style={{ marginBottom:14 }}>
@@ -318,8 +318,8 @@ const PageModifierEvenement = () => {
         </div>
 
         {/* ── Sections Tickets / Stands / Election ── */}
-        <SectionBillet titre="Tickets" typeLabel="Type de ticket" addLabel="Ajouter un type de ticket" icon={<IcoTicket/>}/>
-        <SectionBillet titre="Stands"  typeLabel="Type de stand"  addLabel="Ajouter un type de stand"  icon={<IcoStand/>}/>
+        <SectionBillet titre="Tickets" isMobile={isMobile} typeLabel="Type de ticket" addLabel="Ajouter un type de ticket" icon={<IcoTicket/>}/>
+        <SectionBillet titre="Stands" isMobile={isMobile}  typeLabel="Type de stand"  addLabel="Ajouter un type de stand"  icon={<IcoStand/>}/>
         <SectionElection/>
 
         {/* ── Boutons du bas ── */}
