@@ -22,7 +22,7 @@ const EVENEMENTS = Array.from({length:9}, (_,i) => ({
 const PERIODES = ['7 Derniers Jours','30 Derniers Jours','3 Derniers Mois','Cette Année'];
 
 const IcoChevron = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="6 9 12 15 18 9"/></svg>;
-const IcoStats   = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
+const IcoStats   = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>;
 const IcoChevRight = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>;
 
 const BtnOutline = ({ children, red, onClick }) => (
@@ -103,9 +103,9 @@ const PageMesEvenements = () => {
               <div style={{ padding:'14px 16px' }}>
                 <div style={{ fontSize:13.5, fontWeight:800, color:'#111', textTransform:'uppercase', marginBottom:8 }}>{ev.titre}</div>
                 <p style={{ fontSize:12, color:'#666', lineHeight:1.65, marginBottom:14 }}>{ev.description}</p>
-                <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
+                <div style={{ display:'flex', gap:8, alignItems:'center' }}>
                   <BtnOutline onClick={()=>navigate(`/modifier-evenement/${ev.id}`)}>Modifier</BtnOutline>
-                  <BtnOutline onClick={()=>navigate(`/statistiques-evenement/${ev.id}`)}><IcoStats/> Statistiques</BtnOutline>
+                  <BtnStats onClick={()=>navigate(`/statistiques-evenement/${ev.id}`)}><IcoStats/> Statistiques</BtnStats>
                   <BtnOutline red>Supprimer</BtnOutline>
                 </div>
               </div>
