@@ -51,8 +51,8 @@ const BtnOutline = ({ children, onClick, red }) => (
   </button>
 );
 
-const TitreSection = ({ titre }) => (
-  <div style={{display:'flex',alignItems:'center',gap:4,fontSize:16,fontWeight:800,color:'#111',marginBottom:16,fontFamily:'Poppins,sans-serif',cursor:'pointer'}}>
+const TitreSection = ({ titre, onClick }) => (
+  <div onClick={onClick} style={{display:'flex',alignItems:'center',gap:4,fontSize:16,fontWeight:800,color:'#111',marginBottom:16,fontFamily:'Poppins,sans-serif',cursor:'pointer'}}>
     {titre} <IcoChevron/>
   </div>
 );
@@ -148,7 +148,7 @@ const PageProfil = () => {
 
           {/* ── Portfolio ── */}
           <div>
-            <TitreSection titre="Portfolio"/>
+            <TitreSection titre="Portfolio" onClick={()=>navigate("/profil")}/>
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
               {[0,1,2,3,4].map(i=>(
                 <div key={i} style={{aspectRatio:'1/1',borderRadius:10,overflow:'hidden'}}>
@@ -174,7 +174,7 @@ const PageProfil = () => {
 
           {/* ── Mes services ── */}
           <div>
-            <TitreSection titre="Mes services"/>
+            <TitreSection titre="Mes services" onClick={()=>navigate("/proposer-service")}/>
             <FiltresCats active={catSvc} setActive={setCatSvc}/>
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
               {[0,1,2,3,4,5].map(i=>(
@@ -188,7 +188,7 @@ const PageProfil = () => {
                   <div style={{padding:'8px 8px'}}>
                     <div style={{fontSize:11.5,fontWeight:700,color:'#111'}}>Crudité</div>
                     <div style={{fontSize:10.5,color:'#888',marginTop:2,marginBottom:7}}>A partir de 5.000Fr</div>
-                    <BtnOutline>Modifier</BtnOutline>
+                    <BtnOutline onClick={()=>navigate("/proposer-service")}>Modifier</BtnOutline>
                   </div>
                 </div>
               ))}
@@ -198,7 +198,7 @@ const PageProfil = () => {
 
           {/* ── Mes évènements ── */}
           <div>
-            <TitreSection titre="Mes évènements"/>
+            <TitreSection titre="Mes évènements" onClick={()=>navigate("/mes-evenements")}/>
             <FiltresCats active={catEvt} setActive={setCatEvt}/>
             <div style={{display:'flex',flexDirection:'column',gap:16}}>
               {[0,1].map(i=>(

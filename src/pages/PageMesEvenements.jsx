@@ -49,9 +49,15 @@ const PageMesEvenements = () => {
 
       <div style={{ maxWidth:1200, margin:'0 auto', padding: isMobile?'28px 16px 48px':'40px 28px 60px' }}>
 
-        {/* Titre */}
-        <div style={{ display:'flex', alignItems:'center', gap:4, fontSize: isMobile?18:22, fontWeight:800, color:'#111', marginBottom:24, cursor:'pointer' }}>
-          Mes Évènements <IcoChevRight/>
+        {/* Titre + bouton créer */}
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:24 }}>
+          <div onClick={()=>navigate('/mes-evenements')} style={{ display:'flex', alignItems:'center', gap:4, fontSize: isMobile?18:22, fontWeight:800, color:'#111', cursor:'pointer' }}>
+            Mes Évènements <IcoChevRight/>
+          </div>
+          <button onClick={()=>navigate('/creer-evenement')} style={{ background:'linear-gradient(135deg,#FF5A00,#ff8c00)', color:'#fff', border:'none', borderRadius:12, padding:isMobile?'10px 16px':'12px 24px', fontSize:13, fontWeight:700, cursor:'pointer', fontFamily:'Poppins,sans-serif', display:'flex', alignItems:'center', gap:6, boxShadow:'0 4px 14px rgba(255,90,0,.3)' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Créer un évènement
+          </button>
         </div>
 
         {/* Dropdown période */}

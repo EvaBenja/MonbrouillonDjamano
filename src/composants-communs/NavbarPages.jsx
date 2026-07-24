@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useResponsive from './useResponsive';
 
 const IcoHome      = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>;
@@ -36,6 +36,7 @@ const NavbarPages = () => {
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
   const isActive = to => to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -61,14 +62,21 @@ const NavbarPages = () => {
             </div>
           )}
 
-          {/* Droite : globe + hamburger */}
+          {/* Droite : globe + cloche + avatar profil + hamburger */}
           <div style={{ display:'flex', alignItems:'center', gap:8, position:'relative' }} ref={langRef}>
             {/* Globe langue */}
             <div onClick={() => setLangOpen(o=>!o)} style={{ width:36, height:36, borderRadius:9, border:'1.5px solid #eee', background:'#fff', display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer' }}>
               <IcoGlobe/>
             </div>
 
-            {/* Hamburger (mobile seulement) ou icône menu (desktop) */}
+            {/* Avatar profil cliquable → /profil (desktop uniquement) */}
+            {!isMobile && (
+              <div onClick={() => navigate('/profil')} style={{ width:36, height:36, borderRadius:'50%', overflow:'hidden', cursor:'pointer', border:'2px solid #FF5A00', flexShrink:0 }}>
+                <img src="/experiences/personne1.jpg" alt="profil" onError={e=>e.target.style.display='none'} style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
+              </div>
+            )}
+
+            {/* Hamburger */}
             <div
               onClick={() => setMenuOpen(o=>!o)}
               style={{ width:36, height:36, borderRadius:9, border:'1.5px solid #eee', background:'#fff', display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer' }}
@@ -110,6 +118,18 @@ const NavbarPages = () => {
                 </Link>
               );
             })}
+            {/* Liens supplémentaires */}
+            <div style={{ borderTop:'1px solid #f5f5f5', margin:'8px 0' }}/>
+            {[
+              { label:'Mon Profil',            to:'/profil' },
+              { label:'Mes Évènements',        to:'/mes-evenements' },
+              { label:'Créer un évènement',    to:'/creer-evenement' },
+              { label:'Proposer un service',   to:'/proposer-service' },
+            ].map(({ label, to }) => (
+              <Link key={label} to={to} style={{ display:'flex', alignItems:'center', gap:12, padding:'13px 24px', fontSize:14, fontWeight:400, color:'#555', textDecoration:'none', fontFamily:'Poppins,sans-serif' }}>
+                {label}
+              </Link>
+            ))}
           </div>
         )}
       </nav>
